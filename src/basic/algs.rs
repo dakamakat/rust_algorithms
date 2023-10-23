@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use std::{cmp::Ordering, collections::HashMap};
 
 pub fn search(nums: Vec<i32>, target: i32) -> i32 {

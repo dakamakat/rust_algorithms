@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use super::algs::{
     fizz_buzz, is_palindrome, max_profit, merge, roman_to_int, rotate, rotate_basic, search,
     search_insert,
@@ -51,14 +53,14 @@ pub fn test_rotate() {
     println!("{:?}", nums2);
 }
 
-pub fn test_merge(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
+pub fn test_merge() {
     let mut nums1 = vec![1, 2];
     let mut nums2 = vec![1, 2, 3, 4, 5, 6, 7];
     merge(&mut nums1, 3, &mut nums2, 4);
     println!("{:?}", nums1);
     println!("{:?}", nums2);
 }
-pub fn test_roman_to_int(s: String) {
+pub fn test_roman_to_int() {
     let s = "IV";
     let z = "LVIII";
     let f = "MCMXCIV";
