@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
 use super::algs::{
-    fizz_buzz, is_palindrome, max_profit, merge, roman_to_int, rotate, rotate_basic, search,
+    fizz_buzz, is_palindrome, max_profit, merge, roman_to_int, rotate, search,
     search_insert,
 };
 

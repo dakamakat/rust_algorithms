@@ -3,13 +3,8 @@ pub struct ListNode {
     pub next: Option<Box<ListNode>>,
 }
 
-trait NewTrait {
-    fn new(val: i32) -> Self;
-}
-
-impl NewTrait for ListNode {
-    #[inline]
-    fn new(val: i32) -> Self {
-        ListNode { next: None, val }
+impl ListNode {
+    pub fn new(val: i32, next: Option<Box<ListNode>>) -> Self {
+        Self { val, next }
     }
 }
