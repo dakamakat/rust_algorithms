@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use super::models::ListNode;
 
 pub fn merge_two_lists(
