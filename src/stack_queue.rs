@@ -1,2 +1,3 @@
-mod models;
+mod algs;
 mod helpers;
+mod models;

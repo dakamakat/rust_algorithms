@@ -22,24 +22,31 @@ pub fn merge_two_lists(
 }
 
 pub fn remove_nth_from_end(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
-    let mut ptr = head;
-    let mut count = 0;
-
-    while ptr.is_some() {
-        count += 1;
-        ptr = ptr.unwrap().next;
-    }
-
-    let elNum = count - n;
-
-    ptr
+    head
 }
 
 pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-    let ptr = &head;
-    while ptr.is_some() {
-        
-    }
+    let (mut prev, mut curr) = (None, head);
+    while let Some(mut node) = curr {
+        curr = node.next;
 
-    head
+        node.next = prev;
+
+        prev = Some(node);
+    }
+    prev
+}
+
+pub fn reverse_list_recursive(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    fn recurse(head: Option<Box<ListNode>>, prev: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        match head {
+            Some(mut node) => {
+                let next = node.next.take();
+                node.next = prev;
+                recurse(next, Some(node))
+            }
+            None => prev,
+        }
+    }
+    recurse(head, None)
 }
