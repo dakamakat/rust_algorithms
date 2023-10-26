@@ -41,6 +41,22 @@ pub fn has_cycle(head: Option<Box<ListNode>>) -> bool {
     false
 }
 
+pub fn has_cycle_two_pointers(head: Option<Box<ListNode>>) -> bool {
+    let mut slow = &head;
+    let mut fast = &head;
+
+    while let (Some(node), Some(node2)) = (fast, slow) {
+        if node == node2 {
+            return true;
+        }
+
+        slow = &slow.as_ref().unwrap().next;
+        fast = &fast.as_ref().unwrap().next.as_ref().unwrap().next;
+    }
+
+    false
+}
+
 pub fn remove_nth_from_end(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
     head
 }
