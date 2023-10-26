@@ -1,5 +1,7 @@
 #![allow(dead_code)]
 
+use std::collections::HashSet;
+
 use super::models::ListNode;
 
 pub fn merge_two_lists(
@@ -21,6 +23,22 @@ pub fn merge_two_lists(
             })),
         },
     }
+}
+
+pub fn has_cycle(head: Option<Box<ListNode>>) -> bool {
+    let mut curr = &head;
+    let mut set: HashSet<&Box<ListNode>> = HashSet::new();
+
+    while let Some(node) = curr {
+        if set.contains(&node) {
+            return true;
+        }
+
+        curr = &node.next;
+        set.insert(&node);
+    }
+
+    false
 }
 
 pub fn remove_nth_from_end(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {

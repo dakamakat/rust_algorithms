@@ -1,4 +1,4 @@
-#[derive(PartialEq, Eq, Clone, Debug)]
+#[derive(PartialEq, Eq, Clone, Debug , Hash)]
 pub struct ListNode {
     pub val: i32,
     pub next: Option<Box<ListNode>>,
