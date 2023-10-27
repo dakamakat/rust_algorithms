@@ -17,7 +17,7 @@ impl<T> Stack<T> {
         self.stack.pop()
     }
 
-    pub fn top(&mut self) -> Option<&T> {
+    pub fn top(&self) -> Option<&T> {
         self.stack.last()
     }
 
@@ -25,11 +25,11 @@ impl<T> Stack<T> {
         self.stack.last_mut()
     }
 
-    pub fn size(&mut self) -> usize {
+    pub fn size(&self) -> usize {
         self.stack.len()
     }
 
-    pub fn is_empty(&mut self) -> bool {
+    pub fn is_empty(&self) -> bool {
         self.stack.is_empty()
     }
 }
