@@ -13,14 +13,14 @@ impl ListNode {
 }
 
 #[derive(Debug, Copy, Clone)]
-struct CacheItem {
+pub struct CacheItem {
     value: i32,
     version: i32,
 }
 
 #[derive(Debug)]
 pub struct LRUCache {
-    cache: HashMap<i32, CacheItem>,
+    pub cache: HashMap<i32, CacheItem>,
     capacity: i32,
     version: i32,
 }

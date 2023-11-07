@@ -3,7 +3,7 @@
 use super::{
     algs::{merge_two_lists, reverse_list},
     helpers::{array_to_linked_list, print_linked_list},
-    models::LRUCache,
+    models::{LRUCache, CircularQueue},
 };
 
 pub fn test_merge_sorted_lists() {
@@ -38,5 +38,9 @@ pub fn test_lru_cache() {
     lRUCache.get(1); // return -1 (not found)
     lRUCache.get(3); // return 3
     lRUCache.get(4); // return 4
-    println!("{:?}", lRUCache.map)
+    println!("{:?}", lRUCache.cache)
+}
+
+pub fn test_circular_queue() {
+    let queue = CircularQueue::new(3);
 }
