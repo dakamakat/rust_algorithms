@@ -162,13 +162,13 @@ impl NestedIteratorStack {
     }
 }
 
-struct NestedIteratorFlattened {
+pub struct NestedIteratorFlattened {
     flattened: Vec<i32>,
     index: usize,
 }
 
 impl NestedIteratorFlattened {
-    fn new(nested_list: Vec<NestedInteger>) -> Self {
+    pub fn new(nested_list: Vec<NestedInteger>) -> Self {
         let mut flattened = Vec::new();
         Self::flatten(&nested_list, &mut flattened);
 
@@ -187,13 +187,13 @@ impl NestedIteratorFlattened {
         }
     }
 
-    fn next(&mut self) -> i32 {
+    pub fn next(&mut self) -> i32 {
         let val = self.flattened[self.index];
         self.index += 1;
         val
     }
 
-    fn has_next(&self) -> bool {
+    pub fn has_next(&self) -> bool {
         self.index < self.flattened.len()
     }
 }

@@ -62,3 +62,7 @@ pub fn is_valid_clean(s: String) -> bool {
 
     v.is_empty()
 }
+
+pub fn trap(height: Vec<i32>) -> i32 {
+    todo!()
+}
