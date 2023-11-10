@@ -65,7 +65,7 @@ impl<T> Queue<T> {
 
 pub struct CircularQueue {
     capacity: i32,
-    queue: Vec<i32>,
+    pub queue: Vec<i32>,
 }
 
 impl CircularQueue {
@@ -105,5 +105,95 @@ impl CircularQueue {
 
     pub fn is_full(&self) -> bool {
         self.queue.len() == self.capacity as usize
+    }
+}
+
+#[derive(Debug, PartialEq, Eq)]
+pub enum NestedInteger {
+    Int(i32),
+    List(Vec<NestedInteger>),
+}
+
+pub struct NestedIteratorStack {
+    stack: Vec<(NestedInteger, usize)>,
+    next: Option<i32>,
+}
+impl NestedIteratorStack {
+    fn new(nested_list: Vec<NestedInteger>) -> Self {
+        Self {
+            stack: vec![(NestedInteger::List(nested_list), 0)],
+            next: None,
+        }
+    }
+
+    fn next(&self) -> i32 {
+        self.next.unwrap_or_else(|| panic!("No next value"))
+    }
+
+    fn has_next(&mut self) -> bool {
+        use std::mem::swap;
+        use NestedInteger::*;
+
+        self.next = None;
+
+        while let Some((nested, idx)) = self.stack.pop() {
+            match nested {
+                Int(val) => {
+                    self.next = Some(val);
+                    break;
+                }
+                List(mut list) => {
+                    let len = list.len();
+
+                    if idx < len {
+                        let mut val = Int(i32::MIN);
+
+                        swap(&mut val, &mut list[idx]);
+
+                        if idx + 1 < len {
+                            self.stack.push((List(list), idx + 1));
+                        }
+                        self.stack.push((val, 0));
+                    }
+                }
+            }
+        }
+        self.next.is_some()
+    }
+}
+
+struct NestedIteratorFlattened {
+    flattened: Vec<i32>,
+    index: usize,
+}
+
+impl NestedIteratorFlattened {
+    fn new(nested_list: Vec<NestedInteger>) -> Self {
+        let mut flattened = Vec::new();
+        Self::flatten(&nested_list, &mut flattened);
+
+        Self {
+            flattened,
+            index: 0,
+        }
+    }
+
+    fn flatten(nested: &[NestedInteger], result: &mut Vec<i32>) {
+        for ni in nested {
+            match ni {
+                NestedInteger::Int(val) => result.push(*val),
+                NestedInteger::List(list) => Self::flatten(list, result),
+            }
+        }
+    }
+
+    fn next(&mut self) -> i32 {
+        let val = self.flattened[self.index];
+        self.index += 1;
+        val
+    }
+
+    fn has_next(&self) -> bool {
+        self.index < self.flattened.len()
     }
 }

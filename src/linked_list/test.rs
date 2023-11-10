@@ -1,9 +1,10 @@
 #![allow(dead_code)]
 
+use crate::{linked_list::models::LRUCache, stack_queue::models::CircularQueue};
+
 use super::{
     algs::{merge_two_lists, reverse_list},
     helpers::{array_to_linked_list, print_linked_list},
-    models::{LRUCache, CircularQueue},
 };
 
 pub fn test_merge_sorted_lists() {
