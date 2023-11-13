@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
 use super::models::TreeNode;
-use std::{cell::RefCell, cmp::Ordering, rc::Rc};
+use std::{cell::RefCell, cmp::Ordering, rc::Rc, collections::VecDeque};
 
 type OptNode = Option<Rc<RefCell<TreeNode>>>;
 
@@ -89,6 +89,38 @@ pub fn search_bst_iter(root: OptNode, val: i32) -> OptNode {
     }
     None
 }
+
+pub fn is_cousins_bfs(root: Option<Rc<RefCell<TreeNode>>>, x: i32, y: i32) -> bool {
+        let mut vd = VecDeque::new();
+        if let Some(r) = root {
+            vd.push_back((r, None));
+        }
+        while !vd.is_empty() {
+            let mut x_found = None;
+            let mut y_found = None;
+            for _ in 0..vd.len() {
+                if let Some((node, parent)) = vd.pop_front() {
+                    let val = node.borrow().val;
+                    if val == x {
+                        x_found = parent;
+                    }
+                    if val == y {
+                        y_found = parent;
+                    }
+                    if let Some(n) = node.borrow_mut().left.take() {
+                        vd.push_back((n, Some(val)));
+                    }
+                    if let Some(n) = node.borrow_mut().right.take() {
+                        vd.push_back((n, Some(val)));
+                    }
+                }
+            }
+            if let (Some(x_parent), Some(y_parent)) = (x_found, y_found) {
+                return x_parent != y_parent;
+            }
+        }
+        false
+    }
 
 pub fn is_cousins_dfs(root: Option<Rc<RefCell<TreeNode>>>, x: i32, y: i32) -> bool {
     let mut depth: Vec<i32> = Vec::new();
