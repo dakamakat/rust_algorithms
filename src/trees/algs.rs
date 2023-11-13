@@ -90,6 +90,39 @@ pub fn search_bst_iter(root: OptNode, val: i32) -> OptNode {
     None
 }
 
+pub fn is_cousins_dfs(root: Option<Rc<RefCell<TreeNode>>>, x: i32, y: i32) -> bool {
+    let mut depth: Vec<i32> = Vec::new();
+    let mut par: Vec<i32> = Vec::new();
+
+    dfs(&root, -1, x, y, &mut depth, &mut par, 0);
+
+    return depth[0] == depth[1] && par[0] != par[1];
+}
+
+pub fn dfs(
+    root: &Option<Rc<RefCell<TreeNode>>>,
+    value: i32,
+    x: i32,
+    y: i32,
+    depth: &mut Vec<i32>,
+    par: &mut Vec<i32>,
+    d: i32,
+) {
+    if let Some(root) = root {
+        let node = root.borrow();
+
+        if node.val == x || node.val == y {
+            depth.push(d);
+            par.push(value);
+        }
+
+        dfs(&node.left, node.val, x, y, depth, par, d + 1);
+        dfs(&node.right, node.val, x, y, depth, par, d + 1);
+    } else {
+        return;
+    }
+}
+
 pub fn is_cousins(root: Option<Rc<RefCell<TreeNode>>>, x: i32, y: i32) -> bool {
     fn find_bt_node_depth(
         root: Option<Rc<RefCell<TreeNode>>>,
